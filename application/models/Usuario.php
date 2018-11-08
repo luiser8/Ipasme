@@ -16,7 +16,9 @@ class Usuario extends CI_Model
     
     public function All()
     {
-        $query = $this->db->get('usuarios');
+        $query = $this->db->query('SELECT usuarios.*, niveles.* 
+                                    FROM usuarios
+                                        INNER JOIN niveles ON usuarios.idnivel = niveles.idnivel');
         return $query->result_array();
     }
     
@@ -29,7 +31,9 @@ class Usuario extends CI_Model
 
     public function Find($id)
     {
-        $query = $this->db->where('Id', $id)->get('usuarios');
+        $query = $this->db->where('idusuario', $id)->query('SELECT usuarios.*, niveles.* 
+                                                                FROM usuarios
+                                                                    INNER JOIN niveles ON usuarios.idnivel = niveles.idnivel');
         return $query->row_array();
     }
     

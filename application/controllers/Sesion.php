@@ -27,7 +27,7 @@ class Sesion extends CI_Controller {
 			$usuario = $this->Usuario->Check($_POST);
 			if($usuario){
 				$usuario_data = array(
-					'Id'=>$usuario['idusuario'],
+					'IdUsuario'=>$usuario['idusuario'],
 					'Nombres'=>$usuario['nombres'],
 					'Apellidos'=>$usuario['apellidos'],
 					'Nivel'=>$usuario['idnivel'],

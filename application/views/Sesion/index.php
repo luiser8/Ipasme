@@ -29,8 +29,10 @@
     <!--Formulario de inicio de sesion-->
     <div class="container" id="container_sesion">
         <div class="col col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6">
-        <?php if(true){ ?>
-            <p ><b><?php echo isset($Error) ? $Error : '';?></b></p>
+        <?php if(isset($Error)){ ?>
+            <div class="alert alert-danger" role="alert">
+                <p ><b><?php echo isset($Error) ? $Error : '';?></b></p>
+            </div>
         <?php } ?>
             <form action="<?php echo base_url('Sesion/login'); ?>" method="post">
                     <div class="form-group">
