@@ -39,21 +39,29 @@
                     <li><a href="<?php echo base_url('Pacientes'); ?>" title="Pacientes"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
                     <li><a href="<?php echo base_url('Examenes'); ?>" title="Examenes"><i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i></a></li>
                     <li><a href="<?php echo base_url('Estadisticas'); ?>" title="Estadisticas"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a></li>
-                    <?php if($_SESSION['Nivel'] == 1){ ?>
                     <li class="dropdown"><a href="#" title="Configuraciónes" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-2x" aria-hidden="true"></i><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url('Usuarios'); ?>"><b>Usuarios</b></a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo base_url('Medicos'); ?>"><b>Medicos</b></a></li> 
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo base_url('Estudios'); ?>"><b>Estudios</b></a></li>
-                            <li role="separator" class="divider"></li>
+                            <?php if($_SESSION['Nivel'] == 1){ ?>
                             <li><a href="<?php echo base_url('Empresas'); ?>"><b>Empresas</b></a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo base_url('Especialidades'); ?>"><b>Especialidades</b></a></li>                           
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1 || $_SESSION['Nivel'] == 2 || $_SESSION['Nivel'] == 3){ ?>
+                            <li><a href="<?php echo base_url('Estudios'); ?>"><b>Estudios</b></a></li>
+                            <li role="separator" class="divider"></li>
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1 || $_SESSION['Nivel'] == 2){ ?>
+                            <li><a href="<?php echo base_url('Especialidades'); ?>"><b>Especialidades</b></a></li> 
+                            <li role="separator" class="divider"></li>
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1){ ?>                         
+                            <li><a href="<?php echo base_url('Medicos'); ?>"><b>Medicos</b></a></li> 
+                            <li role="separator" class="divider"></li>
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1){ ?> 
+                            <li><a href="<?php echo base_url('Usuarios'); ?>"><b>Usuarios</b></a></li>
+                            <?php } ?>
                         </ul>
                     </li>   
-                    <?php } ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
