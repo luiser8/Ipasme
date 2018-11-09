@@ -54,8 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 //Session
-$route['Sesion'] = 'Sesion';
+//$route['Sesion'] = 'Sesion';
 //$route['jugador/eliminar/(:num)'] = 'jugador/eliminar/$1';
 
 //Principal
-$route['Principal'] = 'Principal';
+//$route['Principal'] = 'Principal';

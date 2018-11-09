@@ -14,11 +14,24 @@ class Usuario extends CI_Model
         $this->db->insert('usuarios', $Usuario);
     }
     
+    function Exists($usuario)
+    {
+        $is_unique;
+        $query = $this->db->where('cedula', $usuario)->get('usuarios');
+        if($query->num_rows() > 0){
+            return $is_unique = false;
+        }else{
+            return $is_unique = true;
+        }
+        return $is_unique;       
+    }
+
     public function All()
     {
         $query = $this->db->query('SELECT usuarios.*, niveles.* 
                                     FROM usuarios
-                                        INNER JOIN niveles ON usuarios.idnivel = niveles.idnivel');
+                                        INNER JOIN niveles ON usuarios.idnivel = niveles.idnivel
+                                            WHERE usuarios.idnivel != 1');
         return $query->result_array();
     }
     

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ipasme - pacientes</title>
+    <title>Ipasme - estudios</title>
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap-theme.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/font-awesome.min.css') ?>">
@@ -63,43 +63,35 @@
     <!-- Contenido -->
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('Principal'); ?>">Principal</a></li>
-      <li><a href="<?php echo base_url('Pacientes'); ?>">Pacientes</a></li>
+      <li><a href="<?php echo base_url('Estudios'); ?>">Estudios</a></li>
       <li class="active">Index</li>
     </ol>
     <div class="container">
         <div class="col-md-10">
-            <input type="text" onkeyup="filtro('#buscar_paciente', '#tabla_pacientes');" id="buscar_paciente" class="form-control" name="buscar" placeholder="Buscar pacientes">
+            <input type="text" onkeyup="filtro('#buscar_estudio', '#tabla_estudio');" id="buscar_estudio" class="form-control" name="buscar" placeholder="Buscar estudios">
         </div>
-        <button type="button" data-toggle="modal" title="Agregar paciente" data-target="#agregarPaciente" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
+        <button type="button" data-toggle="modal" title="Agregar estudio" data-target="#agregarEstudio" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
         
         <!--Tabla de datos de pacientes-->
-        <table class="table table-striped table-hover table-responsive" id="tabla_pacientes">
+        <table class="table table-striped table-hover table-responsive" id="tabla_estudio">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>CEDULA</th>
-                    <th>NOMBRES</th>
-                    <th>APELLIDOS</th>
-                    <th>SEXO</th>
-                    <th>CORREO</th>
-                    <th>EMPRESA</th>
+                    <th>NOMBRE</th>
+                    <th>DESCRIPCION</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($Pacientes as $paciente):?>
+            <?php foreach ($Estudios as $estudio):?>
                 <tr>
-                    <td><?php echo $paciente['idpaciente']; ?></td>
-                    <td><?php echo $paciente['cedula']; ?></td>
-                    <td><?php echo $paciente['nombres']; ?></td>
-                    <td><?php echo $paciente['apellidos']; ?></td>
-                    <td><?php if($paciente['sexo'] == 1){echo 'Masculino';}else{echo 'Femenino';} ?></td>
-                    <td><?php echo $paciente['correo']; ?></td>
-                    <td><?php echo $paciente['nombre']; ?></td>
+                    <td><?php echo $estudio['idestudio']; ?></td>
+                    <td><?php echo $estudio['nombre']; ?></td>
+                    <td><?php echo $estudio['descripcion']; ?></td>
                     <td>
-                        <a class="btn-default" onclick="editar('paciente', this);" data-toggle="modal" title="Editar paciente" data-target="#editarPaciente" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+                        <a class="btn-default" onclick="editar('estudio', this);" data-toggle="modal" title="Editar estudio" data-target="#editarEstudio" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                         <?php if($_SESSION['Nivel'] == 1){ ?>    
-                            <a class="btn-default" onclick="eliminar('idpacienteEliminar', <?php echo $paciente['idpaciente']; ?>);" data-toggle="modal" title="Eliminar paciente" data-target="#eliminarPaciente" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            <a class="btn-default" onclick="eliminar('idestudioEliminar', <?php echo $estudio['idestudio']; ?>);" data-toggle="modal" title="Eliminar estudio" data-target="#eliminarEstudio" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                         <?php } ?>
                     </td>
                 </tr>
@@ -109,43 +101,22 @@
     </div>
 
     <!--Modal datos del paciente--> 
-    <div class="modal fade" id="agregarPaciente">
+    <div class="modal fade" id="agregarEstudio">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Agregar Paciente</h4>
+                    <h4 class="modal-title">Agregar Estudio</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregarPaciente" action="<?php echo base_url('Pacientes/create'); ?>" method="post">
+                    <form id="formAgregarEstudio" action="<?php echo base_url('Estudios/create'); ?>" method="post">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="cedula" required placeholder="Cedula" autocomplete="off">
+                            <input class="form-control" type="text" name="nombre" required placeholder="Nombre" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <select name="idempresa" class="form-control">
-                                <option>Selecciona una empresa</option>
-                                <?php foreach ($Empresas as $empresa):?>
-                                    <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="nombres" required placeholder="Nombres" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="apellidos" required placeholder="Apellidos" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <select name="sexo" class="form-control">
-                                <option>Selecciona un sexo</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Femenino</option>
-                            </select>
-                        </div>                    
-                        <div class="form-group">
-                            <input class="form-control" type="email" name="correo" required placeholder="Correo" autocomplete="off">
-                        </div>
+                            <input class="form-control" type="text" name="descripcion" required placeholder="Descripción" autocomplete="off">
+                        </div>                   
                         <input class="btn btn-primary" type="submit" value="Guardar">
                     </form>
                 </div>
@@ -153,44 +124,23 @@
         </div>
     </div>
     <!--Modal editar paciente-->
-    <div class="modal fade" id="editarPaciente">
+    <div class="modal fade" id="editarEstudio">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Editar Paciente</h4>
+                    <h4 class="modal-title">Editar Estudio</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formEditarPaciente" action="<?php echo base_url('Pacientes/editar'); ?>" method="post">
-                        <input type="hidden" id="idpaciente" name="idpaciente">
+                    <form id="formEditarEstudio" action="<?php echo base_url('Estudios/editar'); ?>" method="post">
+                        <input type="hidden" id="idestudio" name="idestudio">
                         <div class="form-group">
-                            <input class="form-control" type="text" id="cedula_paciente" name="cedula" required placeholder="Cedula" autocomplete="off">
+                            <input class="form-control" type="text" id="nombre_estudio" name="nombre" required placeholder="Nombre" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <select name="idempresa_paciente" id="idempresa" class="form-control">
-                                <option>Selecciona una empresa</option>
-                                <?php foreach ($Empresas as $empresa):?>
-                                    <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" id="nombres_paciente" name="nombres" required placeholder="Nombres" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" id="apellidos_paciente" name="apellidos" required placeholder="Apellidos" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <select name="sexo" class="form-control">
-                                <option>Selecciona un sexo</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Femenino</option>
-                            </select>
-                        </div>                    
-                        <div class="form-group">
-                            <input class="form-control" type="email" id="correo_paciente" name="correo" required placeholder="Correo" autocomplete="off">
-                        </div>
+                            <input class="form-control" type="text" id="descripcion_estudio" name="descripcion" required placeholder="Descripción" autocomplete="off">
+                        </div>                 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             <input class="btn btn-primary" type="submit" value="Guardar cambios">
@@ -201,20 +151,20 @@
         </div>
     </div>
     <!--Modal elimnar paciente-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarPaciente">
+        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarEstudio">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Eliminar Paciente</h4>
+                <h4 class="modal-title">Eliminar Estudio</h4>
               </div>
               <div class="modal-body">
-                <p><b><span id="datos_paciente"></span></b></p>
-                <p>Seguro que desea eliminar este paciente. Los cambios no se podran deshacer.&hellip;</p>
+                <p><b><span id="datos_estudio"></span></b></p>
+                <p>Seguro que desea eliminar este estudio. Los cambios no se podran deshacer.&hellip;</p>
               </div>
               <div class="modal-footer">
-                <form action="<?php echo base_url('Pacientes/eliminar'); ?>" method="post">
-                    <input type="hidden" id="idpacienteEliminar" name="idpaciente">
+                <form action="<?php echo base_url('Estudios/eliminar'); ?>" method="post">
+                    <input type="hidden" id="idestudioEliminar" name="idestudio">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Eliminar</button>
                 </form>
