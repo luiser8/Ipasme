@@ -100,6 +100,7 @@
                         <a class="btn-default" onclick="editar('usuario', this);" data-toggle="modal" title="Editar usuario" data-target="#editarUsuario" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                         <?php if($_SESSION['Nivel'] == 1){ ?>    
                             <a class="btn-default" onclick="eliminar('idusuarioEliminar', <?php echo $usuario['idusuario']; ?>);" data-toggle="modal" title="Eliminar usuario" data-target="#eliminarUsuario" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            <a class="btn-default" onclick="cambiarclave('idusuario_usuario', <?php echo $usuario['idusuario']; ?>);" data-toggle="modal" title="Cambiar contraseña del usuario" data-target="#cambiarclaveUsuario" href="#"><i class="fa fa-history fa-2x" aria-hidden="true"></i></a>
                         <?php } ?>
                     </td>
                 </tr>
@@ -217,6 +218,33 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <!--Modal cambiar clave-->
+        <div class="modal fade" id="cambiarclaveUsuario">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            title="Cerrar">&times;</button>
+                    <h4 class="modal-title">Cambiar Contraseña del Usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="formNuevaClaveUsuario" action="<?php echo base_url('Usuarios/cambiarclave'); ?>" method="post">
+                        <input type="hidden" id="idusuario_usuario" name="idusuario">
+                        <div class="form-group">
+                            <input class="form-control" type="password" required placeholder="Nueva contraseña" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="clave" required placeholder="Confirmar nueva contraseña" autocomplete="off">
+                        </div>                 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <input class="btn btn-primary" type="submit" value="Guardar cambios">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Scripts -->
     <script src="<?php echo base_url('./assets/js/jquery-1.12-4.min.js') ?>"></script>
     <script src="<?php echo base_url('./assets/js/bootstrap.min.js') ?>"></script>

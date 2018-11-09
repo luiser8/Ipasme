@@ -40,6 +40,19 @@ class Usuarios extends CI_Controller {
         }
     }
 
+    public function cambiarclave()
+    {
+    	if(!empty($_POST)){
+            if($this->Usuario->Exists($_POST['idusuario'])){
+                $_POST['clave'] = md5($_POST['clave']);
+            	$this->Usuario->Update($_POST);
+            }else{
+            	$this->load->view('Usuarios/index', ['Error' => 'Registro repetido']);
+            }
+            redirect(base_url('Usuarios'));
+        }
+    }
+
     public function editar()
     {
     	if(!empty($_POST)){

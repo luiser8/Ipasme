@@ -23,6 +23,12 @@ function editar(valor, index){
     }
 }
 
+function cambiarclave(valor, index)
+{
+    //Pego en el formulario
+    document.getElementById(valor).value = index;
+}
+
 function editarPaciente(index)
 {
     //Nodos tabla

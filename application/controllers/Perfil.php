@@ -24,4 +24,17 @@ class Perfil extends CI_Controller {
         $usuario = $this->Usuario->Find($_SESSION['IdUsuario']);
         $this->load->view('Perfil/index', ['Usuario' => $usuario]);
     }
+
+    public function cambiarclave()
+    {
+        if(!empty($_POST)){
+            if($this->Usuario->Exists($_POST['idusuario'])){
+                $_POST['clave'] = md5($_POST['clave']);
+                $this->Usuario->Update($_POST);
+            }else{
+                $this->load->view('Perfil/index', ['Error' => 'Registro repetido']);
+            }
+            redirect(base_url('Perfil'));
+        }
+    }
 }

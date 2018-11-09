@@ -64,6 +64,8 @@
       <li><a href="<?php echo base_url('Principal'); ?>">Principal</a></li>
       <li class="active">Index</li>
     </ol>
+    <!--Contenido-->
+    <img class="img img-responsive" src="<?php echo base_url('./assets/images/banner.jpg'); ?>" alt="Imagen de fondo principal">
     <!-- Scripts -->
     <script src="<?php echo base_url('./assets/js/jquery-1.12-4.min.js') ?>"></script>
     <script src="<?php echo base_url('./assets/js/bootstrap.min.js') ?>"></script>
