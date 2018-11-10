@@ -41,7 +41,11 @@
                     <li><a href="<?php echo base_url('Estadisticas'); ?>" title="Estadisticas"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a></li>
                     <li class="dropdown"><a href="#" title="Configuraciónes" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-2x" aria-hidden="true"></i><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <?php if($_SESSION['Nivel'] == 1){ ?>
+                            <?php if($_SESSION['Nivel'] == 1){ ?> 
+                            <li><a href="<?php echo base_url('Auditorias'); ?>"><b>Auditorias</b></a></li>
+                            <li role="separator" class="divider"></li>
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1 || $_SESSION['Nivel'] == 2){ ?>
                             <li><a href="<?php echo base_url('Empresas'); ?>"><b>Empresas</b></a></li>
                             <li role="separator" class="divider"></li>
                             <?php } ?>
@@ -53,12 +57,16 @@
                             <li><a href="<?php echo base_url('Especialidades'); ?>"><b>Especialidades</b></a></li> 
                             <li role="separator" class="divider"></li>
                             <?php } ?>
-                            <?php if($_SESSION['Nivel'] == 1){ ?>                         
+                            <?php if($_SESSION['Nivel'] == 1 || $_SESSION['Nivel'] == 2){ ?>                         
                             <li><a href="<?php echo base_url('Medicos'); ?>"><b>Medicos</b></a></li> 
                             <li role="separator" class="divider"></li>
                             <?php } ?>
                             <?php if($_SESSION['Nivel'] == 1){ ?> 
                             <li><a href="<?php echo base_url('Usuarios'); ?>"><b>Usuarios</b></a></li>
+                            <li role="separator" class="divider"></li>
+                            <?php } ?>
+                            <?php if($_SESSION['Nivel'] == 1 || $_SESSION['Nivel'] == 2){ ?> 
+                            <li><a href="<?php echo base_url('TiposDePacientes'); ?>"><b>Tipos de pacientes</b></a></li>
                             <?php } ?>
                         </ul>
                     </li>   
@@ -90,6 +98,7 @@
                     <th>APELLIDOS</th>
                     <th>SEXO</th>
                     <th>CORREO</th>
+                    <th>TIPO</th>
                     <th>EMPRESA</th>
                     <th>OPCIONES</th>
                 </tr>
@@ -103,6 +112,7 @@
                     <td><?php echo $paciente['apellidos']; ?></td>
                     <td><?php if($paciente['sexo'] == 1){echo 'Masculino';}else{echo 'Femenino';} ?></td>
                     <td><?php echo $paciente['correo']; ?></td>
+                    <td><?php echo $paciente['tipo']; ?></td>
                     <td><?php echo $paciente['nombre']; ?></td>
                     <td>
                         <a class="btn-default" onclick="editar('paciente', this);" data-toggle="modal" title="Editar paciente" data-target="#editarPaciente" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
@@ -135,6 +145,14 @@
                                 <option>Selecciona una empresa</option>
                                 <?php foreach ($Empresas as $empresa):?>
                                     <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="idtipopaciente" class="form-control">
+                                <option>Selecciona tipo de paciente</option>
+                                <?php foreach ($TiposDePacientes as $tipospaciente):?>
+                                    <option value="<?php echo $tipospaciente['idtipopaciente']; ?>"><?php echo $tipospaciente['nombre']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -180,6 +198,14 @@
                                 <option>Selecciona una empresa</option>
                                 <?php foreach ($Empresas as $empresa):?>
                                     <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="idtipopaciente" class="form-control">
+                                <option>Selecciona tipo de paciente</option>
+                                <?php foreach ($TiposDePacientes as $tipospaciente):?>
+                                    <option value="<?php echo $tipospaciente['idtipopaciente']; ?>"><?php echo $tipospaciente['nombre']; ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>

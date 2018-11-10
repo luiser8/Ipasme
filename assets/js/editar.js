@@ -20,6 +20,9 @@ function editar(valor, index){
         case 'estudio':
             editarEstudio(index);
         break;
+        case 'tipopaciente':
+            editarTipopaciente(index);
+        break;
     }
 }
 
@@ -131,4 +134,18 @@ function editarEstudio(index)
     document.getElementById('idestudio').value = idestudio;
     document.getElementById('nombre_estudio').value = nombre;
     document.getElementById('descripcion_estudio').value = descripcion;
+}
+
+function editarTipopaciente(index)
+{
+    //Nodos tabla
+    var idtipopaciente = index.parentNode.parentNode.cells[0].textContent;
+    var nombre = index.parentNode.parentNode.cells[1].textContent;
+    var descripcion = index.parentNode.parentNode.cells[2].textContent;
+    //var especialidad = index.parentNode.parentNode.cells[5].textContent;
+
+    //Pego en el formulario
+    document.getElementById('idtipopaciente').value = idtipopaciente;
+    document.getElementById('nombre_tipopaciente').value = nombre;
+    document.getElementById('descripcion_tipopaciente').value = descripcion;
 }

@@ -28,9 +28,10 @@ class Paciente extends CI_Model
     
     public function All()
     {
-        $query = $this->db->query('SELECT pacientes.*, empresas.* 
+        $query = $this->db->query('SELECT pacientes.*, empresas.*, tipopaciente.nombre AS tipo
                                     FROM pacientes
-                                        INNER JOIN empresas ON pacientes.idempresa = empresas.idempresa');
+                                        INNER JOIN empresas ON pacientes.idempresa = empresas.idempresa
+                                        INNER JOIN tipopaciente ON pacientes.idtipopaciente = tipopaciente.idtipopaciente');
         return $query->result_array();
     }
 

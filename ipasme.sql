@@ -14,9 +14,14 @@ INSERT INTO `niveles` (`idnivel`, `nombre`, `descripcion`, `creado`) VALUES
 (1, 'Administrador', 'Administrador del sistema', '2018-11-08 04:42:35'),
 (2, 'Operador', 'Operador del sistema', '2018-11-09 03:57:34');
 
-INSERT INTO `pacientes` (`idpaciente`, `idempresa`, `cedula`, `nombres`, `apellidos`, `sexo`, `correo`, `creado`) VALUES
-(1, 1, '19651249', 'Luis E.', 'Rondon', 1, 'leduardo.rondon@gmail.com', '2018-11-08 04:43:40'),
-(6, 1, '8220801', 'Luisa', 'Rondon', 2, 'luisa.rondon@gmail.com', '2018-11-08 06:55:33');
+INSERT INTO `tipopaciente` (`idtipopaciente`, `nombre`, `descripcion`, `creado`) VALUES
+(1, 'Afiliado', 'Paciente afiliado', '2018-11-08 04:42:35'),
+(2, 'Beneficiado', 'Paciente Beneficiado', '2018-11-09 03:57:34'),
+(3, 'Comunitario', 'Paciente comunitario', '2018-11-08 04:42:35');
+
+INSERT INTO `pacientes` (`idpaciente`, `idtipopaciente`, `idempresa`, `cedula`, `nombres`, `apellidos`, `sexo`, `correo`, `creado`) VALUES
+(1, 1, 1, '19651249', 'Luis E.', 'Rondon', 1, 'leduardo.rondon@gmail.com', '2018-11-08 04:43:40'),
+(6, 2, 1, '8220801', 'Luisa', 'Rondon', 2, 'luisa.rondon@gmail.com', '2018-11-08 06:55:33');
 
 INSERT INTO `usuarios` (`idusuario`, `idnivel`, `cedula`, `nombres`, `apellidos`, `correo`, `cuenta`, `clave`, `creado`) VALUES
 (1, 1, '19651249', 'Luis Eduardo', 'Rondon', 'leduardo.rondon@gmail.com', 'luiser', '827ccb0eea8a706c4c34a16891f84e7b', '2018-11-08 04:43:08'),

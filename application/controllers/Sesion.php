@@ -9,6 +9,7 @@ class Sesion extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('Usuario');
+        $this->load->model('Auditoria');
 
        	/*if($this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -34,6 +35,7 @@ class Sesion extends CI_Controller {
 					'Logueado' => TRUE
 				);
 				$this->session->set_userdata($usuario_data);
+				$this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Iniciar sesion', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             	redirect(base_url('Principal'));
 			}else{
 				$this->load->view('Sesion/index', ['Error'=>'Error! usuario o contraseña invalido. Vuelve a intentar']);
@@ -48,6 +50,7 @@ class Sesion extends CI_Controller {
       );
       $this->session->set_userdata($usuario_data);
       $this->session->sess_destroy();
+      $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Cerrar sesion', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
       redirect(base_url('Sesion'));
    }
 

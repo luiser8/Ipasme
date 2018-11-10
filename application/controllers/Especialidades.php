@@ -9,6 +9,7 @@ class Especialidades extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('Especialidad');
+        $this->load->model('Auditoria');
 
 		if(!$this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -30,6 +31,7 @@ class Especialidades extends CI_Controller {
         if(!empty($_POST)){
             if($this->Especialidad->Exists($_POST['nombre'])){
             	$this->Especialidad->Add($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Especialidades', 'accion'=>'Crear una especialidad', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Especialidades/index', ['Error' => 'Registro repetido']);
             }
@@ -41,6 +43,7 @@ class Especialidades extends CI_Controller {
     {
     	if(!empty($_POST)){
             $this->Especialidad->Update($_POST);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Especialidades', 'accion'=>'Editar una especialidad', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             redirect(base_url('Especialidades'));
         }
     }
@@ -49,6 +52,7 @@ class Especialidades extends CI_Controller {
     {
     	if(!empty($_POST)){
     		$this->Especialidad->Delete($_POST['idespecialidad']);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Especialidades', 'accion'=>'Eliminar una especialidad', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
     	}
     	redirect(base_url('Especialidades'));
     }

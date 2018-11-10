@@ -10,6 +10,8 @@ class Pacientes extends CI_Controller {
         $this->load->library('session');
         $this->load->model('Paciente');
         $this->load->model('Empresa');
+        $this->load->model('TipoPaciente');
+        $this->load->model('Auditoria');
 
 		if(!$this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -23,8 +25,9 @@ class Pacientes extends CI_Controller {
 	public function index()
 	{
 		$pacientes = $this->Paciente->All();
-		$empresa = $this->Empresa->All();
-		$this->load->view('Pacientes/index', ['Pacientes' => $pacientes, 'Empresas' => $empresa]);
+        $empresa = $this->Empresa->All();
+        $tipopaciente = $this->TipoPaciente->All();
+		$this->load->view('Pacientes/index', ['Pacientes' => $pacientes, 'Empresas' => $empresa, 'TiposDePacientes' => $tipopaciente]);
 	}
 
 	public function create()
@@ -32,6 +35,7 @@ class Pacientes extends CI_Controller {
         if(!empty($_POST)){
             if($this->Paciente->Exists($_POST['cedula'])){
             	$this->Paciente->Add($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Pacientes', 'accion'=>'Crear un paciente', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Pacientes/index', ['Error' => 'Registro repetido']);
             }
@@ -44,6 +48,7 @@ class Pacientes extends CI_Controller {
     	if(!empty($_POST)){
             if(!$this->Paciente->Exists($_POST['cedula'])){
             	$this->Paciente->Update($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Pacientes', 'accion'=>'Editar un paciente', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Pacientes/index', ['Error' => 'Registro repetido']);
             }
@@ -55,6 +60,7 @@ class Pacientes extends CI_Controller {
     {
     	if(!empty($_POST)){
     		$this->Paciente->Delete($_POST['idpaciente']);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Pacientes', 'accion'=>'Elimnar un paciente', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
     	}
     	redirect(base_url('Pacientes'));
     }

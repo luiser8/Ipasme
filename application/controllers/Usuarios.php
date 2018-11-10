@@ -10,6 +10,7 @@ class Usuarios extends CI_Controller {
         $this->load->library('session');
         $this->load->model('Niveles');
         $this->load->model('Usuario');
+        $this->load->model('Auditoria');
 
 		if(!$this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -33,6 +34,7 @@ class Usuarios extends CI_Controller {
             if($this->Usuario->Exists($_POST['cedula'])){
                 $_POST['clave'] = md5($_POST['clave']);
             	$this->Usuario->Add($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Crear un usuario', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Usuarios/index', ['Error' => 'Registro repetido']);
             }
@@ -46,6 +48,7 @@ class Usuarios extends CI_Controller {
             if($this->Usuario->Exists($_POST['idusuario'])){
                 $_POST['clave'] = md5($_POST['clave']);
             	$this->Usuario->Update($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Cambiar contraseña un usuario', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Usuarios/index', ['Error' => 'Registro repetido']);
             }
@@ -58,6 +61,7 @@ class Usuarios extends CI_Controller {
     	if(!empty($_POST)){
             if(!$this->Usuario->Exists($_POST['cedula'])){
             	$this->Usuario->Update($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Editar un usuario', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Usuarios/index', ['Error' => 'Registro repetido']);
             }
@@ -69,6 +73,7 @@ class Usuarios extends CI_Controller {
     {
     	if(!empty($_POST)){
     		$this->Usuario->Delete($_POST['idusuario']);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Usuarios', 'accion'=>'Eliminar un usuario', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
     	}
     	redirect(base_url('Usuarios'));
     }

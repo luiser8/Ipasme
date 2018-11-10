@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ipasme - especialidades</title>
+    <title>Ipasme - tipo de pacientes</title>
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap-theme.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/font-awesome.min.css') ?>">
@@ -79,17 +79,17 @@
     <!-- Contenido -->
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('Principal'); ?>">Principal</a></li>
-      <li><a href="<?php echo base_url('Especialidades'); ?>">Especialidades</a></li>
+      <li><a href="<?php echo base_url('TiposDePacientes'); ?>">Tipo de pacientes</a></li>
       <li class="active">Index</li>
     </ol>
     <div class="container">
         <div class="col-md-10">
-            <input type="text" onkeyup="filtro('#buscar_especialidad', '#tabla_especialidad');" id="buscar_especialidad" class="form-control" name="buscar" placeholder="Buscar especialidades">
+            <input type="text" onkeyup="filtro('#buscar_tipopaciente', '#tabla_tipopaciente');" id="buscar_tipopaciente" class="form-control" name="buscar" placeholder="Buscar tipos de pacientes">
         </div>
-        <button type="button" data-toggle="modal" title="Agregar especialidad" data-target="#agregarEspecialidad" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
+        <button type="button" data-toggle="modal" title="Agregar Tipo de Paciente" data-target="#agregarTipopaciente" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
         
         <!--Tabla de datos de pacientes-->
-        <table class="table table-striped table-hover table-responsive" id="tabla_especialidad">
+        <table class="table table-striped table-hover table-responsive" id="tabla_tipopaciente">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -99,15 +99,15 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($Especialidades as $especialidad):?>
+            <?php foreach ($TiposDePacientes as $tipopaciente):?>
                 <tr>
-                    <td><?php echo $especialidad['idespecialidad']; ?></td>
-                    <td><?php echo $especialidad['nombre']; ?></td>
-                    <td><?php echo $especialidad['descripcion']; ?></td>
+                    <td><?php echo $tipopaciente['idtipopaciente']; ?></td>
+                    <td><?php echo $tipopaciente['nombre']; ?></td>
+                    <td><?php echo $tipopaciente['descripcion']; ?></td>
                     <td>
-                        <a class="btn-default" onclick="editar('especialidad', this);" data-toggle="modal" title="Editar especialidad" data-target="#editarEspecialidad" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+                        <a class="btn-default" onclick="editar('tipopaciente', this);" data-toggle="modal" title="Editar tipo de paciente" data-target="#editarTipopaciente" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                         <?php if($_SESSION['Nivel'] == 1){ ?>    
-                            <a class="btn-default" onclick="eliminar('idespecialidadEliminar', <?php echo $especialidad['idespecialidad']; ?>);" data-toggle="modal" title="Eliminar especialidad" data-target="#eliminarEspecialidad" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            <a class="btn-default" onclick="eliminar('idtipopacienteEliminar', <?php echo $tipopaciente['idtipopaciente']; ?>);" data-toggle="modal" title="Eliminar tipo de paciente" data-target="#eliminarTipopaciente" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                         <?php } ?>
                     </td>
                 </tr>
@@ -117,16 +117,16 @@
     </div>
 
     <!--Modal datos del paciente--> 
-    <div class="modal fade" id="agregarEspecialidad">
+    <div class="modal fade" id="agregarTipopaciente">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Agregar Especialidad</h4>
+                    <h4 class="modal-title">Agregar Tipo de Paciente</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregarEspecialidad" action="<?php echo base_url('Especialidades/create'); ?>" method="post">
+                    <form id="formAgregarTipopaciente" action="<?php echo base_url('TiposDePacientes/create'); ?>" method="post">
                         <div class="form-group">
                             <input class="form-control" type="text" name="nombre" required placeholder="Nombre" autocomplete="off">
                         </div>
@@ -140,22 +140,22 @@
         </div>
     </div>
     <!--Modal editar paciente-->
-    <div class="modal fade" id="editarEspecialidad">
+    <div class="modal fade" id="editarTipopaciente">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Editar Especialidad</h4>
+                    <h4 class="modal-title">Editar Tipo de Paciente</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formEditarMedico" action="<?php echo base_url('Especialidades/editar'); ?>" method="post">
-                        <input type="hidden" id="idespecialidad" name="idespecialidad">
+                    <form id="formEditarTipopaciente" action="<?php echo base_url('TiposDePacientes/editar'); ?>" method="post">
+                        <input type="hidden" id="idtipopaciente" name="idtipopaciente">
                         <div class="form-group">
-                            <input class="form-control" type="text" id="nombre_especialidad" name="nombre" required placeholder="Nombre" autocomplete="off">
+                            <input class="form-control" type="text" id="nombre_tipopaciente" name="nombre" required placeholder="Nombre" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" id="descripcion_especialidad" name="descripcion" required placeholder="Descripción" autocomplete="off">
+                            <input class="form-control" type="text" id="descripcion_tipopaciente" name="descripcion" required placeholder="Descripción" autocomplete="off">
                         </div>                 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -167,20 +167,20 @@
         </div>
     </div>
     <!--Modal elimnar paciente-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarEspecialidad">
+        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarTipopaciente">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Eliminar Especialidad</h4>
+                <h4 class="modal-title">Eliminar Tipo de Paciente</h4>
               </div>
               <div class="modal-body">
-                <p><b><span id="datos_especialidad"></span></b></p>
-                <p>Seguro que desea eliminar esta especialidad. Los cambios no se podran deshacer.&hellip;</p>
+                <p><b><span id="datos_tipopaciente"></span></b></p>
+                <p>Seguro que desea eliminar esta tipo de paciente. Los cambios no se podran deshacer.&hellip;</p>
               </div>
               <div class="modal-footer">
-                <form action="<?php echo base_url('Especialidades/eliminar'); ?>" method="post">
-                    <input type="hidden" id="idespecialidadEliminar" name="idespecialidad">
+                <form action="<?php echo base_url('TiposDePacientes/eliminar'); ?>" method="post">
+                    <input type="hidden" id="idtipopacienteEliminar" name="idtipopaciente">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Eliminar</button>
                 </form>

@@ -9,6 +9,7 @@ class Empresas extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('Empresa');
+        $this->load->model('Auditoria');
 
 		if(!$this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -30,6 +31,7 @@ class Empresas extends CI_Controller {
         if(!empty($_POST)){
             if($this->Empresa->Exists($_POST['nombre'])){
             	$this->Empresa->Add($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Empresas', 'accion'=>'Crear una empresa', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Empresas/index', ['Error' => 'Registro repetido']);
             }
@@ -41,6 +43,7 @@ class Empresas extends CI_Controller {
     {
     	if(!empty($_POST)){
             $this->Empresa->Update($_POST);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Empresas', 'accion'=>'Editar una empresa', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             redirect(base_url('Empresas'));
         }
     }
@@ -49,6 +52,7 @@ class Empresas extends CI_Controller {
     {
     	if(!empty($_POST)){
     		$this->Empresa->Delete($_POST['idempresa']);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Empresas', 'accion'=>'Eliminar una empresa', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
     	}
     	redirect(base_url('Empresas'));
     }

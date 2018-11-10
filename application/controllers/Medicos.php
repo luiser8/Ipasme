@@ -10,6 +10,7 @@ class Medicos extends CI_Controller {
         $this->load->library('session');
         $this->load->model('Especialidad');
         $this->load->model('Medico');
+        $this->load->model('Auditoria');
 
 		if(!$this->verify_admin_level()){
             redirect(base_url('Sesion'));
@@ -32,6 +33,7 @@ class Medicos extends CI_Controller {
         if(!empty($_POST)){
             if($this->Medico->Exists($_POST['cedula'])){
             	$this->Medico->Add($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Medicos', 'accion'=>'Crear un medico', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Medicos/index', ['Error' => 'Registro repetido']);
             }
@@ -44,6 +46,7 @@ class Medicos extends CI_Controller {
     	if(!empty($_POST)){
             if(!$this->Medico->Exists($_POST['cedula'])){
             	$this->Medico->Update($_POST);
+                $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Medicos', 'accion'=>'Editar un medico', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
             }else{
             	$this->load->view('Medicos/index', ['Error' => 'Registro repetido']);
             }
@@ -55,6 +58,7 @@ class Medicos extends CI_Controller {
     {
     	if(!empty($_POST)){
     		$this->Medico->Delete($_POST['idmedico']);
+            $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Medicos', 'accion'=>'Eliminar un medico', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
     	}
     	redirect(base_url('Medicos'));
     }
