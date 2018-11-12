@@ -53,6 +53,7 @@ $route['default_controller'] = 'Sesion';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['Examenes/(:num)'] = 'Examenes/details/$1';
 //Session
 //$route['Sesion'] = 'Sesion';
 //$route['jugador/eliminar/(:num)'] = 'jugador/eliminar/$1';

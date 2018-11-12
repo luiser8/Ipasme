@@ -14,6 +14,11 @@ INSERT INTO `niveles` (`idnivel`, `nombre`, `descripcion`, `creado`) VALUES
 (1, 'Administrador', 'Administrador del sistema', '2018-11-08 04:42:35'),
 (2, 'Operador', 'Operador del sistema', '2018-11-09 03:57:34');
 
+INSERT INTO `estudios` (`idestudio`, `nombre`, `descripcion`, `creado`) VALUES
+(1, 'Mamografia', 'Mamografia', '2018-11-08 04:42:35'),
+(2, 'Panoramica', 'Panoramica', '2018-11-08 04:42:35'),
+(3, 'Rayos X', 'Rayos X', '2018-11-09 03:57:34');
+
 INSERT INTO `tipopaciente` (`idtipopaciente`, `nombre`, `descripcion`, `creado`) VALUES
 (1, 'Afiliado', 'Paciente afiliado', '2018-11-08 04:42:35'),
 (2, 'Beneficiado', 'Paciente Beneficiado', '2018-11-09 03:57:34'),
