@@ -110,7 +110,7 @@
                     <td><?php echo $examenes['fecha']; ?></td>
                     <td>
                         <a href="<?php echo base_url("Examenes/{$examenes['idestudiopac']}") ?>" class="btn-default" data-toggle="modal" title="Ver mas detalles"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" class="btn-default" title="Ver informe"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
+                        <a href="<?php echo base_url("Examenes/print/{$examenes['idestudiopac']}") ?>" target="_blank" class="btn-default" title="Ver informe"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
                         <a class="btn-default" onclick="editar('examenes', this);" data-toggle="modal" title="Editar examen" data-target="#editarExamen" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                         <?php if($_SESSION['Nivel'] == 1){ ?>    
                             <a class="btn-default" onclick="eliminar('idestudiopacEliminar', <?php echo $examenes['idestudiopac']; ?>);" data-toggle="modal" title="Eliminar examen" data-target="#eliminarExamen" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>

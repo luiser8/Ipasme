@@ -35,6 +35,16 @@ class Paciente extends CI_Model
         return $query->result_array();
     }
 
+    public function FindTipo($id)
+    {
+        $query = $this->db->query('SELECT pacientes.*, empresas.*, tipopaciente.nombre AS tipo
+                                    FROM pacientes
+                                        INNER JOIN empresas ON pacientes.idempresa = empresas.idempresa
+                                        INNER JOIN tipopaciente ON pacientes.idtipopaciente = tipopaciente.idtipopaciente
+                                            WHERE pacientes.idpaciente='.$id);
+        return $query->row_array();
+    }
+
     public function Find($id)
     {
         $query = $this->db->where('idpaciente', $id)->get('pacientes');
