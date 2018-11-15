@@ -22,6 +22,12 @@ function editar(valor, index){
         break;
         case 'tipopaciente':
             editarTipopaciente(index);
+        break;        
+        case 'examenes':
+            editarExamenes(index);
+        break;
+        default:
+            "Ninguno";
         break;
     }
 }
@@ -148,4 +154,19 @@ function editarTipopaciente(index)
     document.getElementById('idtipopaciente').value = idtipopaciente;
     document.getElementById('nombre_tipopaciente').value = nombre;
     document.getElementById('descripcion_tipopaciente').value = descripcion;
+}
+
+function editarExamenes(index)
+{
+    //Nodos tabla
+    var idestudiopac = index.parentNode.parentNode.cells[0].textContent;
+    var tecnica = index.parentNode.parentNode.cells[1].textContent;
+
+    //var descripcion = index.parentNode.parentNode.cells[2].textContent;
+    //var especialidad = index.parentNode.parentNode.cells[5].textContent;
+
+    //Pego en el formulario
+    document.getElementById('tecnica_examen').value = tecnica;
+    document.getElementById('idpaciente').value = idpaciente;
+    //document.getElementById('descripcion_tipopaciente').value = descripcion;
 }

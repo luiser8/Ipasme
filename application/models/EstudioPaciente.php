@@ -47,6 +47,18 @@ class EstudioPaciente extends CI_Model
         return $query->row_array();
     }
     
+    public function FindDates($date1, $date2)
+    {
+        $query = $this->db->query("SELECT estudiopaciente.*, pacientes.*, estudios.nombre AS estudio
+                                    FROM estudiopaciente
+                                        INNER JOIN pacientes ON estudiopaciente.idpaciente = pacientes.idpaciente
+                                        INNER JOIN estudios ON estudiopaciente.idestudio = estudios.idestudio
+                                        INNER JOIN medicos ON estudiopaciente.idmedico = medicos.idmedico
+                                            WHERE (estudiopaciente.fecha BETWEEN '{$date1}' AND '{$date2}')");
+
+        return $query->result_array();
+    }
+
     public function Update($estudiopaciente)
     {
         $id = $estudiopaciente['idestudiopac'];

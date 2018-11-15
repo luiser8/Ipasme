@@ -111,8 +111,8 @@
                     <td>
                         <a href="<?php echo base_url("Examenes/{$examenes['idestudiopac']}") ?>" class="btn-default" data-toggle="modal" title="Ver mas detalles"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
                         <a href="<?php echo base_url("Examenes/print/{$examenes['idestudiopac']}") ?>" target="_blank" class="btn-default" title="Ver informe"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a>
-                        <a class="btn-default" onclick="editar('examenes', this);" data-toggle="modal" title="Editar examen" data-target="#editarExamen" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
-                        <?php if($_SESSION['Nivel'] == 1){ ?>    
+<!--                         <a class="btn-default" onclick="editar('examenes', this);" data-toggle="modal" title="Editar examen" data-target="#editarExamen" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+ -->                        <?php if($_SESSION['Nivel'] == 1){ ?>    
                             <a class="btn-default" onclick="eliminar('idestudiopacEliminar', <?php echo $examenes['idestudiopac']; ?>);" data-toggle="modal" title="Eliminar examen" data-target="#eliminarExamen" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                         <?php } ?>
                     </td>
@@ -193,14 +193,7 @@
                 <div class="modal-body">
                     <form id="formEditarExamen" action="<?php echo base_url('Examenes/editar'); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="idestudiopac" name="idestudiopac">
-                        <div class="form-group">
-                            <select name="idpaciente" class="form-control">
-                                <option>Selecciona un paciente</option>
-                                <?php foreach ($Pacientes as $paciente):?>
-                                    <option value="<?php echo $paciente['idpaciente']; ?>"><?php echo $paciente['cedula'] . " - " . $paciente['nombres'] . " " . $paciente['apellidos']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
+                        <input type="hidden" id="idpaciente" name="idpaciente">     
                         <div class="form-group">
                             <select name="idestudio" class="form-control">
                                 <option>Selecciona un estudio</option>
