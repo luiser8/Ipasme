@@ -45,7 +45,6 @@ function getEstadistica(fecha_1, fecha_2){
 	};
 
 function dibuja(data){
-	console.log(`desde dibuja ${data}`);
 		var cedula = [];
         var nombres = [];
         var apellidos = [];
@@ -59,20 +58,20 @@ function dibuja(data){
               fecha.push(data[i].fecha);
             }
             var series = [{
-	          name: "Nombres",
+	          name: nombres[0],
 	          data: cedula
 	        },
 	        {
-	          name: "Nombres",
-	          data: cedula
+	          name: nombres[0],
+	          data: nombres
 	        },
 	        {
-	          name: "Nombres",
-	          data: cedula
+	          name: nombres[0],
+	          data: apellidos
 	        },
 	        {
-	          name: "Nombres",
-	          data: cedula
+	          name: nombres[0],
+	          data: fecha
 	        }];        	
       
             //Funcion Highcharts
