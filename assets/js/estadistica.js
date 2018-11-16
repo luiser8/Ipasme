@@ -19,37 +19,43 @@ btn_buscar.addEventListener('click', function(){
 });
 
 //Todos los elementos
-function getEstadistica(fecha_1, fecha_2){
+const getEstadistica = (fecha_1, fecha_2) => {
 	 fetch(apiAll+'getDates/'+fecha_1+'/'+fecha_2)
 		.then(response => response.json())
 		.then(response => {
-			response.forEach(e => {
-				drawHtml(e, response);
-				dibuja(response);
-				//console.log(e);
-			});
+            try{
+			    response.forEach(e => {
+				    drawHtml(e, response);
+				    dibuja(response);
+			    });
+            }catch(err){
+                console.log(err);
+            }
 		})
 		.catch(e => console.log(e));
 }
-
-	const drawHtml = function(e, r){
-		//console.log(Object.keys(e.idestudiopac).length);
-		console.log(r.length);
+	const drawHtml = (e, r) => {
+		console.log(Object.keys(r));
 		const hero = `
 			<div class="alert alert-info" role="alert">
 				<h1>${r.length} Personas atendidas</h1>
 			</div>
 		`;
-		totales.innerHTML = hero;
+		if(r.length >= 1){
+            totales.innerHTML = hero; 
+        }else{
+            totales.innerHTML = ''; 
+        }
 		//graphic_element.insertAdjacentHTML('beforeEnd', hero);
 	};
 
-function dibuja(data){
+const dibuja = (data) => {
 		var cedula = [];
         var nombres = [];
         var apellidos = [];
         var fecha = [];
-        
+        var series = 'Pacientes';
+
             for(var i=0; i<data.length; i++){
               cedula.push(data[i].cedula);
               nombres.push(data[i].nombres);
@@ -58,19 +64,19 @@ function dibuja(data){
               fecha.push(data[i].fecha);
             }
             var series = [{
-	          name: nombres[0],
+	          name: series,
 	          data: cedula
 	        },
 	        {
-	          name: nombres[0],
+	          name: series,
 	          data: nombres
 	        },
 	        {
-	          name: nombres[0],
+	          name: series,
 	          data: apellidos
 	        },
 	        {
-	          name: nombres[0],
+	          name: series,
 	          data: fecha
 	        }];        	
       
