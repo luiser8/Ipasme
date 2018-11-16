@@ -23,7 +23,7 @@ const getEstadistica = (fecha_1, fecha_2) => {
 	 fetch(apiAll+'getDates/'+fecha_1+'/'+fecha_2)
 		.then(response => response.json())
 		.then(response => {
-            try{
+          try{
 			    response.forEach(e => {
 				    drawHtml(e, response);
 				    dibuja(response);
@@ -35,17 +35,15 @@ const getEstadistica = (fecha_1, fecha_2) => {
 		.catch(e => console.log(e));
 }
 	const drawHtml = (e, r) => {
-		console.log(Object.keys(r));
+		//console.log(Object.keys(r));
 		const hero = `
 			<div class="alert alert-info" role="alert">
 				<h1>${r.length} Personas atendidas</h1>
 			</div>
 		`;
 		if(r.length >= 1){
-            totales.innerHTML = hero; 
-        }else{
-            totales.innerHTML = ''; 
-        }
+      totales.innerHTML = hero; 
+    }
 		//graphic_element.insertAdjacentHTML('beforeEnd', hero);
 	};
 
@@ -54,32 +52,23 @@ const dibuja = (data) => {
         var nombres = [];
         var apellidos = [];
         var fecha = [];
-        var series = 'Pacientes';
 
             for(var i=0; i<data.length; i++){
               cedula.push(data[i].cedula);
               nombres.push(data[i].nombres);
-
               apellidos.push(data[i].apellidos);
               fecha.push(data[i].fecha);
             }
-            var series = [{
-	          name: series,
-	          data: cedula
-	        },
-	        {
-	          name: series,
-	          data: nombres
-	        },
-	        {
-	          name: series,
-	          data: apellidos
-	        },
-	        {
-	          name: series,
-	          data: fecha
-	        }];        	
-      
+
+           	var series = [{
+                name:'Pacientes',
+                data: [
+                    cedula[0],cedula[1],cedula[2],cedula[3],cedula[4],cedula[5],cedula[6],cedula[7],
+                    cedula[8],cedula[9],cedula[10],cedula[11],cedula[12],cedula[13],cedula[14],cedula[15],
+                    cedula[16],cedula[17],cedula[18],cedula[19],cedula[20],cedula[21],cedula[22],cedula[23],
+                    cedula[24],cedula[25],cedula[26],cedula[27],cedula[28],cedula[29],cedula[30],cedula[31],
+                ]
+            }];  
             //Funcion Highcharts
     Highcharts.setOptions({
             lang: {
@@ -104,7 +93,7 @@ const dibuja = (data) => {
       },
 
       title :{
-          text: "Estadisticas",
+          text: "Estadísticas",
           style: {
               fontSize: '14px',
               color : 'black'
@@ -173,8 +162,8 @@ const dibuja = (data) => {
                     borderWidth: '1',
                     align: 'center',
                     x: 0,
-                    y: 0,
-                    rotation: 0,
+                    y: 40,
+                    rotation: -90,
               format: '{point.name}'+ ' ' +'{point.y:,.0f}' , //{point.y:,.0f} o {point.y:.2f},
               //format: '{point.y}'+simbolo[0],
               //format: {point.y:,.0f} o {point.y:.2f},

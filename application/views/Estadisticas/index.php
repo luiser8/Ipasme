@@ -40,7 +40,7 @@
                 <ul class="nav navbar-nav navbar-right" id="navegacion">
                     <li><a href="<?php echo base_url('Pacientes'); ?>" title="Pacientes"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
                     <li><a href="<?php echo base_url('Examenes'); ?>" title="Examenes"><i class="fa fa-heartbeat fa-2x" aria-hidden="true"></i></a></li>
-                    <li><a href="<?php echo base_url('Estadisticas'); ?>" title="Estadisticas"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a></li>
+                    <li><a href="<?php echo base_url('Estadisticas'); ?>" title="Estadísticas"><i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a></li>
                     <li class="dropdown"><a href="#" title="Configuraciónes" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench fa-2x" aria-hidden="true"></i><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php if($_SESSION['Nivel'] == 1){ ?> 
@@ -81,7 +81,7 @@
     <!-- Contenido -->
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('Principal'); ?>">Principal</a></li>
-      <li><a href="<?php echo base_url('Estadisticas'); ?>">Estadisticas</a></li>
+      <li><a href="<?php echo base_url('Estadisticas'); ?>">Estadísticas</a></li>
       <li class="active">Index</li>
     </ol>
     <div class="container">
