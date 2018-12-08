@@ -168,6 +168,15 @@
                                 <option value="1">Masculino</option>
                                 <option value="2">Femenino</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="date" name="fechaNacimiento" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="telefono" required placeholder="Teléfono" autocomplete="off">
+                        </div> 
+                        <div class="form-group">
+                            <textarea class="form-control" name="direccion" placeholder="Dirección" autocomplete="off"></textarea>
                         </div>                    
                         <div class="form-group">
                             <input class="form-control" type="email" name="correo" required placeholder="Correo" autocomplete="off">

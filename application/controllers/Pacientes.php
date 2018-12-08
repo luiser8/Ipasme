@@ -33,6 +33,11 @@ class Pacientes extends CI_Controller {
 	public function create()
     {
         if(!empty($_POST)){
+            $now = new Datetime();
+            $nac = new Datetime($_POST['fechaNacimiento']);
+            $edad = $now->diff($nac);
+            $_POST['edad'] = $edad->y;
+
             if($this->Paciente->Exists($_POST['cedula'])){
             	$this->Paciente->Add($_POST);
                 $this->Auditoria->Add($auditoria = array('idusuario'=>$_SESSION['IdUsuario'], 'tabla'=> 'Pacientes', 'accion'=>'Crear un paciente', 'ip'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'));
