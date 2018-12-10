@@ -25,6 +25,9 @@ function editar(valor, index){
         break;        
         case 'examenes':
             editarExamenes(index);
+        break;        
+        case 'familiar':
+            editarFamiliar(index);
         break;
         default:
             "Ninguno";
@@ -56,6 +59,25 @@ function editarPaciente(index)
     document.getElementById('apellidos_paciente').value = apellidos;
     //document.getElementById('sexo').value = sexo;
     document.getElementById('correo_paciente').value = correo;
+    //document.getElementById('idempresa').value = idempresa;
+}
+
+function editarFamiliar(index)
+{
+    //Nodos tabla
+    var idfamiliar = index.parentNode.parentNode.cells[0].textContent;
+    var cedula = index.parentNode.parentNode.cells[1].textContent;
+    var nombres = index.parentNode.parentNode.cells[3].textContent;
+    var apellidos = index.parentNode.parentNode.cells[4].textContent;
+    var correo = index.parentNode.parentNode.cells[6].textContent;
+
+    //Pego en el formulario
+    document.getElementById('idfamiliar').value = idfamiliar;
+    document.getElementById('cedula_familiar').value = cedula;
+    document.getElementById('nombres_familiar').value = nombres;
+    document.getElementById('apellidos_familiar').value = apellidos;
+    //document.getElementById('sexo').value = sexo;
+    document.getElementById('correo_familiar').value = correo;
     //document.getElementById('idempresa').value = idempresa;
 }
 

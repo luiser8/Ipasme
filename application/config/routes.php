@@ -55,6 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['Examenes/(:num)'] = 'Examenes/details/$1';
 $route['Examenes/print/(:num)'] = 'Examenes/print/$1';
+
+$route['Familiares/(:num)'] = 'Familiares/index/$1';
 //Session
 //$route['Sesion'] = 'Sesion';
 //$route['jugador/eliminar/(:num)'] = 'jugador/eliminar/$1';

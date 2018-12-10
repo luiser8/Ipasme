@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ipasme - pacientes</title>
+    <title>Ipasme - Familiares</title>
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/bootstrap-theme.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('./assets/css/font-awesome.min.css') ?>">
@@ -80,47 +80,42 @@
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('Principal'); ?>">Principal</a></li>
       <li><a href="<?php echo base_url('Pacientes'); ?>">Pacientes</a></li>
-      <li class="active">Index</li>
+      <li class="active">Familiares</li>
     </ol>
     <div class="container">
         <div class="col-md-10">
-            <input type="text" onkeyup="filtro('#buscar_paciente', '#tabla_pacientes');" id="buscar_paciente" class="form-control" name="buscar" placeholder="Buscar pacientes">
+            <input type="text" onkeyup="filtro('#buscar_familiares', '#tabla_familares');" id="buscar_familiares" class="form-control" name="buscar" placeholder="Buscar familiar">
         </div>
-        <button type="button" data-toggle="modal" title="Agregar paciente" data-target="#agregarPaciente" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
+        <button type="button" data-toggle="modal" title="Agregar familiar" data-target="#agregarFamiliar" class="btn"><i class="fa fa-plus " aria-hidden="true"></i></button>
         
         <!--Tabla de datos de pacientes-->
-        <table class="table table-striped table-hover table-responsive" id="tabla_pacientes">
+        <table class="table table-striped table-hover table-responsive" id="tabla_familares">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>CEDULA</th>
+                    <th>PARENTESCO</th>
                     <th>NOMBRES</th>
                     <th>APELLIDOS</th>
                     <th>SEXO</th>
                     <th>CORREO</th>
-                    <th>TIPO</th>
-                    <th>EMPRESA</th>
                     <th>OPCIONES</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($Pacientes as $paciente):?>
+            <?php foreach ($Familiar as $familiar):?>
                 <tr>
-                    <td><?php echo $paciente['idpaciente']; ?></td>
-                    <td><?php echo $paciente['cedula']; ?></td>
-                    <td><?php echo $paciente['nombres']; ?></td>
-                    <td><?php echo $paciente['apellidos']; ?></td>
-                    <td><?php if($paciente['sexo'] == 1){echo 'Masculino';}else{echo 'Femenino';} ?></td>
-                    <td><?php echo $paciente['correo']; ?></td>
-                    <td><?php echo $paciente['tipo']; ?></td>
-                    <td><?php echo $paciente['nombre']; ?></td>
+                    <td><?php echo $familiar['idfamiliar']; ?></td>
+                    <td><?php echo $familiar['cedula']; ?></td>
+                    <td><?php echo $familiar['parentesco']; ?></td>
+                    <td><?php echo $familiar['nombres']; ?></td>
+                    <td><?php echo $familiar['apellidos']; ?></td>
+                    <td><?php if($familiar['sexo'] == 1){echo 'Masculino';}else{echo 'Femenino';} ?></td>
+                    <td><?php echo $familiar['correo']; ?></td>
                     <td>
-                        <?php ?>
-                            <a href="<?php echo base_url("Familiares/{$paciente['idpaciente']}") ?>" class="btn-default" role="button" title="Familiares incluidos"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-                        <?php ?>
-                        <a class="btn-default" onclick="editar('paciente', this);" data-toggle="modal" title="Editar paciente" data-target="#editarPaciente" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
+                        <a class="btn-default" onclick="editar('familiar', this);" data-toggle="modal" title="Editar familiar" data-target="#editarFamiliar" href="#"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></a>
                         <?php if($_SESSION['Nivel'] == 1){ ?>    
-                            <a class="btn-default" onclick="eliminar('idpacienteEliminar', <?php echo $paciente['idpaciente']; ?>);" data-toggle="modal" title="Eliminar paciente" data-target="#eliminarPaciente" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                            <a class="btn-default" onclick="eliminar('idfamiliarEliminar', <?php echo $familiar['idfamiliar']; ?>);" data-toggle="modal" title="Eliminar familiar" data-target="#eliminarFamiliar" href="#"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
                         <?php } ?>
                     </td>
                 </tr>
@@ -130,34 +125,28 @@
     </div>
 
     <!--Modal datos del paciente--> 
-    <div class="modal fade" id="agregarPaciente">
+    <div class="modal fade" id="agregarFamiliar">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Agregar Paciente</h4>
+                    <h4 class="modal-title">Agregar Familiar</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregarPaciente" action="<?php echo base_url('Pacientes/create'); ?>" method="post">
+                    <form id="formAgregarFamiliar" action="<?php echo base_url('Familiares/create'); ?>" method="post">
+                        <input type="hidden" name="idpaciente" value="<?php echo $this->uri->segment(2); ?>">
+                        <div class="form-group">
+                            <select name="parentesco" class="form-control">
+                                <option>Selecciona el parentesco</option>
+                                <option value="Madre">Madre</option>
+                                <option value="Padre">Padre</option>
+                                <option value="Hijo(a)">Hijo(a)</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <input class="form-control" type="text" name="cedula" required placeholder="Cedula" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <select name="idempresa" class="form-control">
-                                <option>Selecciona una empresa</option>
-                                <?php foreach ($Empresas as $empresa):?>
-                                    <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="idtipopaciente" class="form-control">
-                                <option>Selecciona tipo de paciente</option>
-                                <?php foreach ($TiposDePacientes as $tipospaciente):?>
-                                    <option value="<?php echo $tipospaciente['idtipopaciente']; ?>"><?php echo $tipospaciente['nombre']; ?></option>
-                                <?php endforeach ?>
-                            </select>
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" name="nombres" required placeholder="Nombres" autocomplete="off">
@@ -191,41 +180,36 @@
         </div>
     </div>
     <!--Modal editar paciente-->
-    <div class="modal fade" id="editarPaciente">
+    <div class="modal fade" id="editarFamiliar">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             title="Cerrar">&times;</button>
-                    <h4 class="modal-title">Editar Paciente</h4>
+                    <h4 class="modal-title">Editar Familiar</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formEditarPaciente" action="<?php echo base_url('Pacientes/editar'); ?>" method="post">
-                        <input type="hidden" id="idpaciente" name="idpaciente">
+                    <form id="formEditarPaciente" action="<?php echo base_url('Familiares/editar'); ?>" method="post">
+                        <input type="hidden" id="idfamiliar" name="idfamiliar">
+                        <input type="hidden" name="idpaciente" value="<?php echo $this->uri->segment(2); ?>">
                         <div class="form-group">
-                            <input class="form-control" type="text" id="cedula_paciente" name="cedula" required placeholder="Cedula" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <select name="idempresa_paciente" id="idempresa" class="form-control">
-                                <option>Selecciona una empresa</option>
-                                <?php foreach ($Empresas as $empresa):?>
-                                    <option value="<?php echo $empresa['idempresa']; ?>"><?php echo $empresa['descripcion']; ?></option>
-                                <?php endforeach ?>
+                            <select name="parentesco" class="form-control">
+                                <option>Selecciona el parentesco</option>
+                                <option value="Madre">Madre</option>
+                                <option value="Padre">Padre</option>
+                                <option value="Hijo(a)">Hijo(a)</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="idtipopaciente" class="form-control">
-                                <option>Selecciona tipo de paciente</option>
-                                <?php foreach ($TiposDePacientes as $tipospaciente):?>
-                                    <option value="<?php echo $tipospaciente['idtipopaciente']; ?>"><?php echo $tipospaciente['nombre']; ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <input class="form-control" type="text" id="cedula_familiar" name="cedula" required placeholder="Cedula" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="nombres_familiar" name="nombres" required placeholder="Nombres" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" id="nombres_paciente" name="nombres" required placeholder="Nombres" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" id="apellidos_paciente" name="apellidos" required placeholder="Apellidos" autocomplete="off">
+                            <input class="form-control" type="text" id="apellidos_familiar" name="apellidos" required placeholder="Apellidos" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <select name="sexo" class="form-control">
@@ -233,9 +217,13 @@
                                 <option value="1">Masculino</option>
                                 <option value="2">Femenino</option>
                             </select>
-                        </div>                    
+                        </div>
                         <div class="form-group">
-                            <input class="form-control" type="email" id="correo_paciente" name="correo" required placeholder="Correo" autocomplete="off">
+                            <input class="form-control" type="date" id="fechaNacimiento_familiar" name="fechaNacimiento" required autocomplete="off">
+                        </div>
+                   
+                        <div class="form-group">
+                            <input class="form-control" type="email" id="correo_familiar" name="correo" required placeholder="Correo" autocomplete="off">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -247,20 +235,21 @@
         </div>
     </div>
     <!--Modal elimnar paciente-->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarPaciente">
+        <div class="modal fade" tabindex="-1" role="dialog" id="eliminarFamiliar">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Eliminar Paciente</h4>
+                <h4 class="modal-title">Eliminar Familiar</h4>
               </div>
               <div class="modal-body">
-                <p><b><span id="datos_paciente"></span></b></p>
-                <p>Seguro que desea eliminar este paciente. Los cambios no se podran deshacer.&hellip;</p>
+                <p><b><span id="datos_familiar"></span></b></p>
+                <p>Seguro que desea eliminar este familiar. Los cambios no se podran deshacer.&hellip;</p>
               </div>
               <div class="modal-footer">
-                <form action="<?php echo base_url('Pacientes/eliminar'); ?>" method="post">
-                    <input type="hidden" id="idpacienteEliminar" name="idpaciente">
+                <form action="<?php echo base_url('Familiares/eliminar'); ?>" method="post">
+                    <input type="hidden" id="idfamiliarEliminar" name="idfamiliar">
+                    <input type="hidden" name="idpaciente" value="<?php echo $this->uri->segment(2); ?>">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Eliminar</button>
                 </form>
