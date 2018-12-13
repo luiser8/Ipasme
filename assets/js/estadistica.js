@@ -9,23 +9,30 @@ var apiAll = 'http://localhost:1337/Ipasme/Estadisticas/';
 //Elementos HTML
 var estadisticas = document.getElementById('estadisticas');
 var totales = document.getElementById('totales');
+var genero = document.getElementById('genero');
+var edades = document.getElementById('edades');
+var tipospacientes = document.getElementById('tipospacientes');
+var especialidad = document.getElementById('especialidad');
 var btn_buscar = document.getElementById('btn_buscar');
 var fecha_1 = document.getElementById('fecha_1');
 var fecha_2 = document.getElementById('fecha_2');
 
 //llamar evento click
 btn_buscar.addEventListener('click', function(){
-	getEstadistica(fecha_1.value, fecha_2.value);
+  porFecha(fecha_1.value, fecha_2.value);
+  porGenero(fecha_1.value, fecha_2.value);
+  porEdad(fecha_1.value, fecha_2.value);
+	porTipo(fecha_1.value, fecha_2.value);
 });
 
 //Todos los elementos
-const getEstadistica = (fecha_1, fecha_2) => {
+const porFecha = (fecha_1, fecha_2) => {
 	 fetch(apiAll+'getDates/'+fecha_1+'/'+fecha_2)
 		.then(response => response.json())
 		.then(response => {
           try{
 			    response.forEach(e => {
-				    drawHtml(e, response);
+				    drawHtmlTodos(e, response);
 				    dibuja(response);
 			    });
             }catch(err){
@@ -34,18 +41,94 @@ const getEstadistica = (fecha_1, fecha_2) => {
 		})
 		.catch(e => console.log(e));
 }
-	const drawHtml = (e, r) => {
-		//console.log(Object.keys(r));
+	const drawHtmlTodos = (e, r) => {     
 		const hero = `
 			<div class="alert alert-info" role="alert">
-				<h1>${r.length} Personas atendidas</h1>
+				<h3>Personas atendidas total: ${r.length}</h3>
 			</div>
 		`;
 		if(r.length >= 1){
       totales.innerHTML = hero; 
     }
-		//graphic_element.insertAdjacentHTML('beforeEnd', hero);
 	};
+
+//Generos
+const porGenero = (fecha_1, fecha_2) => {
+   fetch(apiAll+'getGender/'+fecha_1+'/'+fecha_2)
+    .then(response => response.json())
+    .then(response => {
+          try{
+          response.forEach(e => {
+            drawHtmlGenero(e, response);
+          });
+            }catch(err){
+                console.log(err);
+            }
+    })
+    .catch(e => console.log(e));
+}
+  const drawHtmlGenero = (e, r) => {    
+    const hero = `
+      <div class="alert alert-info" role="alert">
+        <h3>Femenino: ${e.Femenino} Masculino: ${e.Masculino}</h3>
+      </div>
+    `;
+    if(r.length >= 1){
+      genero.innerHTML = hero; 
+    }
+  };
+
+//Edades
+const porEdad = (fecha_1, fecha_2) => {
+   fetch(apiAll+'getAge/'+fecha_1+'/'+fecha_2)
+    .then(response => response.json())
+    .then(response => {
+          try{
+          response.forEach(e => {
+            drawHtmlEdad(e, response);
+          });
+            }catch(err){
+                console.log(err);
+            }
+    })
+    .catch(e => console.log(e));
+}
+  const drawHtmlEdad = (e, r) => {    
+    const hero = `
+      <div class="alert alert-info" role="alert">
+        <h3>Niños: ${e.Niños} Adultos: ${e.Adultos} Adultos mayores ${e.TerceraEdad}</h3>
+      </div>
+    `;
+    if(r.length >= 1){
+      edades.innerHTML = hero; 
+    }
+  };
+
+//Tipos
+const porTipo = (fecha_1, fecha_2) => {
+   fetch(apiAll+'getType/'+fecha_1+'/'+fecha_2)
+    .then(response => response.json())
+    .then(response => {
+          try{
+          response.forEach(e => {
+            drawHtmlTipo(e, response);
+          });
+            }catch(err){
+                console.log(err);
+            }
+    })
+    .catch(e => console.log(e));
+}
+  const drawHtmlTipo = (e, r) => {    
+    const hero = `
+      <div class="alert alert-info" role="alert">
+        <h3>Afiliados: ${e.Afiliado} Beneficiados: ${e.Beneficiado} Comunitarios ${e.Comunitario}</h3>
+      </div>
+    `;
+    if(r.length >= 1){
+      tipospacientes.innerHTML = hero; 
+    }
+  };
 
 const dibuja = (data) => {
 		var cedula = [];

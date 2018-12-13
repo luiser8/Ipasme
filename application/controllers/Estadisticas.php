@@ -42,4 +42,22 @@ class Estadisticas extends CI_Controller {
         $estudiopaciente = $this->EstudioPaciente->FindDates($date1, $date2);
         echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
     }
+
+    public function getGender($date1, $date2)
+    {
+        $estudiopaciente = $this->EstudioPaciente->FindGender($date1, $date2);
+        echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
+    }
+
+    public function getAge($date1, $date2)
+    {
+        $estudiopaciente = $this->EstudioPaciente->FindAge($date1, $date2);
+        echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
+    }
+
+    public function getType($date1, $date2)
+    {
+        $estudiopaciente = $this->EstudioPaciente->FindTypes($date1, $date2);
+        echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
+    }
 }

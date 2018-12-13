@@ -98,6 +98,10 @@
                     <button type="button" class="btn btn-default" id="btn_buscar">Buscar</button>
                 </div>
                 <div class="col-md-12" id="totales"></div>
+                <div class="col-md-12" id="genero"></div>
+                <div class="col-md-12" id="edades"></div>
+                <div class="col-md-12" id="tipospacientes"></div>
+                <div class="col-md-12" id="especialidad"></div>
             </div>
             <div class="col-md-6" id="estadisticas"></div>
         </div>

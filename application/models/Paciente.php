@@ -35,6 +35,14 @@ class Paciente extends CI_Model
         return $query->result_array();
     }
 
+    public function AllAndFamiliares()
+    {
+        $query = $this->db->query('SELECT * FROM familiares
+                                        UNION
+                                        SELECT * FROM pacientes');
+        return $query->result_array();
+    }
+
     public function FindTipo($id)
     {
         $query = $this->db->query('SELECT pacientes.*, empresas.*, tipopaciente.nombre AS tipo
