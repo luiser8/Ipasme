@@ -22,7 +22,8 @@ btn_buscar.addEventListener('click', function(){
   porFecha(fecha_1.value, fecha_2.value);
   porGenero(fecha_1.value, fecha_2.value);
   porEdad(fecha_1.value, fecha_2.value);
-	porTipo(fecha_1.value, fecha_2.value);
+  porTipo(fecha_1.value, fecha_2.value);
+	porEstudio(fecha_1.value, fecha_2.value);
 });
 
 //Todos los elementos
@@ -96,7 +97,7 @@ const porEdad = (fecha_1, fecha_2) => {
   const drawHtmlEdad = (e, r) => {    
     const hero = `
       <div class="alert alert-info" role="alert">
-        <h3>Niños: ${e.Niños} Adultos: ${e.Adultos} Adultos mayores ${e.TerceraEdad}</h3>
+        <h3>Niños: ${e.Niños} Adultos: ${e.Adultos} Adultos mayores: ${e.TerceraEdad}</h3>
       </div>
     `;
     if(r.length >= 1){
@@ -122,11 +123,42 @@ const porTipo = (fecha_1, fecha_2) => {
   const drawHtmlTipo = (e, r) => {    
     const hero = `
       <div class="alert alert-info" role="alert">
-        <h3>Afiliados: ${e.Afiliado} Beneficiados: ${e.Beneficiado} Comunitarios ${e.Comunitario}</h3>
+        <h3>Afiliados: ${e.Afiliado} Beneficiados: ${e.Beneficiado} Comunitarios: ${e.Comunitario}</h3>
       </div>
     `;
     if(r.length >= 1){
       tipospacientes.innerHTML = hero; 
+    }
+  };
+
+//Por estudios
+const porEstudio = (fecha_1, fecha_2) => {
+   fetch(apiAll+'getStudio/'+fecha_1+'/'+fecha_2)
+    .then(response => response.json())
+    .then(response => {
+          try{
+          response.forEach(e => {
+            drawHtmlStudio(e, response);
+          });
+            }catch(err){
+                console.log(err);
+            }
+    })
+    .catch(e => console.log(e));
+}
+  const drawHtmlStudio = (e, r) => {
+  console.log(e);   
+    const hero = `
+      <div class="alert alert-info" role="alert">
+        <ul>
+          <li><h3>Estudio: ${e.nombre} Total: ${e.idestudiopac}</h3></li>
+        </ul>
+        
+      </div>
+    `;
+    if(r.length >= 1){
+      //especialidad.innerHTML = hero; 
+      especialidad.insertAdjacentHTML('beforeEnd', hero);
     }
   };
 

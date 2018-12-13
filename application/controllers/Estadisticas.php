@@ -60,4 +60,10 @@ class Estadisticas extends CI_Controller {
         $estudiopaciente = $this->EstudioPaciente->FindTypes($date1, $date2);
         echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
     }
+
+    public function getStudio($date1, $date2)
+    {
+        $estudiopaciente = $this->EstudioPaciente->FindStudio($date1, $date2);
+        echo json_encode($estudiopaciente, JSON_NUMERIC_CHECK);///JSON_UNESCAPED_UNICODE JSON_NUMERIC_CHECK
+    }
 }

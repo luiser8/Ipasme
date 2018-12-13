@@ -62,8 +62,8 @@ class EstudioPaciente extends CI_Model
     public function FindGender($date1, $date2)
     {
         $query = $this->db->query("SELECT estudiopaciente.*
-                                    ,SUM(CASE WHEN pacientes.sexo = 1 THEN 1 END) AS Masculino
-                                    ,SUM(CASE WHEN pacientes.sexo = 2 THEN 1 END) AS Femenino
+                                    ,IFNULL(SUM(CASE WHEN pacientes.sexo = 1 THEN 1 END), 0) AS Masculino
+                                    ,IFNULL(SUM(CASE WHEN pacientes.sexo = 2 THEN 1 END), 0) AS Femenino
                                     ,SUM(CASE WHEN pacientes.sexo IS NOT NULL THEN 1 ELSE 0 END) AS Total
                                     FROM estudiopaciente
                                         INNER JOIN pacientes ON estudiopaciente.idpaciente = pacientes.idpaciente
@@ -76,8 +76,8 @@ class EstudioPaciente extends CI_Model
     {
         $query = $this->db->query("SELECT estudiopaciente.*
                                     ,IFNULL(SUM(CASE WHEN pacientes.edad < 18 THEN 1 END), 0) AS Niños
-                                    ,SUM(CASE WHEN pacientes.edad < 55 THEN 1 END) AS Adultos
-                                    ,SUM(CASE WHEN pacientes.edad > 55 THEN 1 END) AS TerceraEdad
+                                    ,IFNULL(SUM(CASE WHEN pacientes.edad < 55 THEN 1 END), 0) AS Adultos
+                                    ,IFNULL(SUM(CASE WHEN pacientes.edad > 55 THEN 1 END), 0) AS TerceraEdad
                                     FROM estudiopaciente
                                         INNER JOIN pacientes ON estudiopaciente.idpaciente = pacientes.idpaciente
                                             WHERE (estudiopaciente.fecha BETWEEN '{$date1}' AND '{$date2}')");
@@ -93,6 +93,17 @@ class EstudioPaciente extends CI_Model
                                     ,IFNULL(SUM(CASE WHEN pacientes.idtipopaciente = 3 THEN 1 END), 0) AS Comunitario
                                     FROM estudiopaciente
                                         INNER JOIN pacientes ON estudiopaciente.idpaciente = pacientes.idpaciente
+                                            WHERE (estudiopaciente.fecha BETWEEN '{$date1}' AND '{$date2}')");
+
+        return $query->result_array();
+    }
+
+    public function FindStudio($date1, $date2)
+    {
+        $query = $this->db->query("SELECT estudiopaciente.idestudiopac, estudios.nombre
+                                    FROM estudiopaciente
+                                        INNER JOIN pacientes ON estudiopaciente.idpaciente = pacientes.idpaciente
+                                        INNER JOIN estudios ON estudiopaciente.idestudio = estudios.idestudio
                                             WHERE (estudiopaciente.fecha BETWEEN '{$date1}' AND '{$date2}')");
 
         return $query->result_array();
